@@ -1,0 +1,130 @@
+ Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Cover photo",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () => getImage(false),
+                            child: Text(
+                              "Edit",
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff95d57b),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5)
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: (_coverImage != null
+                                ? FileImage(_coverImage!)
+                                : AssetImage('asset/cover.jpg'))
+                            as ImageProvider<Object>,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.grey[300],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Bio",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isEditing = !_isEditing;
+                              });
+                            },
+                            child: Text(
+                              _isEditing ? "Save" : "Edit",
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff95d57b),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _isEditing
+                      ? TextField(
+                    controller: _textEditingController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter your bio',
+                    ),
+                  )
+                      : Text(
+                    _textEditingController.text.isNotEmpty
+                        ? _textEditingController.text
+                        : _initialText,
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.grey[300],
+            ),
